@@ -3,13 +3,14 @@
 #
 # Run the swagger-editor service on port 80
 ###
+#
+FROM gliderlabs/alpine:3.1
+RUN apk --update add nodejs git bash gcc
+RUN echo 'nameserver 8.8.8.8' > /etc/resolv.conf
+RUN mkdir /runtime
 
-FROM    ubuntu:14.04
-MAINTAINER Marcello_deSales@intuit.com
+MAINTAINER danielwhatmuff@gmail.com
 
-ENV     DEBIAN_FRONTEND noninteractive
-
-RUN     apt-get update && apt-get install -y git npm nodejs
 RUN     ln -s /usr/bin/nodejs /usr/local/bin/node
 
 WORKDIR /runtime
@@ -25,5 +26,5 @@ RUN     bower --allow-root install
 ADD     .   /runtime
 
 # The default port of the application
-EXPOSE  80
-CMD     grunt build; grunt connect:dist
+# EXPOSE  80
+# CMD     grunt build; grunt connect:dist
